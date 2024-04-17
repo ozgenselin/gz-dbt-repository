@@ -55,6 +55,73 @@ sources:
           - name: ship_cost
             description: shipping cost associated with the order
 
+
+      - name: adwords
+        identifier: raw_gz_adwords
+        description: Adwords campaigns
+        tests:
+          - unique:
+              column_name: "(date_date|| '-' ||campaign_name)"
+          - not_null:
+              column_name:
+                - date_date
+                - paid_source
+                - campaign_key
+                - campaign_name
+                - ads_cost
+                - impression
+                - click
+
+
+      
+      - name: bing
+        identifier: raw_gz_bing
+        description: Bing campaigns
+        tests:
+          - unique:
+              column_name: "(date_date|| '-' ||campaign_name)"
+          - not_null:
+              column_name:
+                - date_date
+                - paid_source
+                - campaign_key
+                - campaign_name
+                - ads_cost
+                - impression
+                - click
+
+      - name: criteo
+        identifier: raw_gz_criteo
+        description: Criteo campaigns
+        tests:
+          - unique:
+              column_name: "(date_date|| '-' ||campaign_name)"
+          - not_null:
+              column_name:
+                - date_date
+                - paid_source
+                - campaign_key
+                - campaign_name
+                - ads_cost
+                - impression
+                - click
+      - name: facebook
+        identifier: raw_gz_facebook
+        description: Facebook campaigns
+        tests:
+          - unique:
+              column_name: "(date_date|| '-' ||campaign_name)"
+          - not_null:
+              column_name:
+                - date_date
+                - paid_source
+                - campaign_key
+                - campaign_name
+                - ads_cost
+                - impression
+                - click
+ 
+            
 models:
   - name: int_sales_margin
     description: the margin per product in each order is calculated
@@ -102,3 +169,40 @@ models:
             - shipping_fee
             - logcost
             - ship_cost
+          
+  - name: int_campaigns
+    description: Unioning all campaigns from adwords, bing, criteo, and facebook
+    tests:
+      - unique:
+          column_name: date_date
+      - not_null:
+          column_name:
+            - orders_id
+            - products_id
+            - margin
+            - purchase_cost
+            - date_date
+            - revenue
+            - quantity
+
+  - name: int_campaigns_day
+    description: Campaigns data aggregated for date_date (daily)
+    tests:
+      - unique:
+          column_name: date_date
+      - not_null:
+          column_name:
+            - date_date
+            - ads_cost
+
+  - name: finance_campaigns_day
+    description: Daily finance and ad campaign metrics
+    tests:
+      - unique:
+          column_name: date_date
+      - not_null:
+          column_name:
+            - date_date
+            - ads_margin
+            - average_basket
+            - operational_margin
