@@ -6,5 +6,9 @@ models:
   my_new_project:
     # Applies to all files under models/mart/
     mart:
-      materialized: table
+      +materialized: table
+      finance: 
+        +schema: finance
+
+
 
