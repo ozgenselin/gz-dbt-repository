@@ -54,3 +54,51 @@ sources:
             description: logistics cost associated with the order
           - name: ship_cost
             description: shipping cost associated with the order
+
+models:
+  - name: int_sales_margin
+    description: the margin per product in each order is calculated
+    tests:
+      - unique:
+          column_name: "(orders_id|| '-' ||products_id)"
+      - not_null:
+          column_name:
+            - orders_id
+            - products_id
+            - margin
+            - purchase_cost
+            - date_date
+            - revenue
+            - quantity
+
+  - name: int_orders_margin
+    description: the margin orders_id is calculated
+    tests:
+      - unique:
+          column_name: orders_id
+      - not_null:
+          column_name:
+            - orders_id
+            - date_date
+            - revenue
+            - quantity
+            - purchase_cost
+            - margin
+
+  - name: int_orders_operational
+    description: operational margin per orders_id is calcualted
+    tests:
+      - unique:
+          column_name: orders_id
+      - not_null:
+          column_name:
+            - orders_id
+            - date_date
+            - operational_margin
+            - quantity
+            - revenue
+            - purchase_cost
+            - margin
+            - shipping_fee
+            - logcost
+            - ship_cost
