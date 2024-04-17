@@ -1,4 +1,6 @@
-{{config(materialized= 'table')}}
+-- {{config(materialized= 'table')}}
+-- The query above materializes the view as a table
+-- commented it as we added a configuration in dbt_project.yml to make any query in the mart folder will be materialised as a table
 
 SELECT date_date
       ,COUNT(orders_id) AS nb_transactions
